@@ -1,0 +1,57 @@
+.marcas {
+  padding: 20px 15px 20px 15px;
+}
+
+.marcas > div {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+}
+
+.marcas > div > div {
+  width: 100%;
+  border: 1px solid #333;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 10px 10px 10px 10px;
+}
+
+.marcas > div > div > div:first-of-type {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr;
+      grid-template-rows: 1fr;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+}
+
+.marcas > div > div > div:first-of-type > h3 {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: center;
+      align-self: center;
+}
+
+.marcas > div > div > div:first-of-type > img {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100px;
+  height: 50px;
+  background-color: brown;
+  justify-self: right;
+}
+
+.marcas > div > div > div:last-of-type {
+  margin-top: 10px;
+}
+
+.marcas > div > div > div:last-of-type > p {
+  margin-top: 10px;
+}
+/*# sourceMappingURL=marcas.css.map */

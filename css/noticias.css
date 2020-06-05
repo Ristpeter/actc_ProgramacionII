@@ -1,0 +1,81 @@
+.noticias {
+  width: 100%;
+  padding: 20px 10px 20px 10px;
+}
+
+.noticias > div {
+  width: 100%;
+  margin-top: 20px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  grid-gap: 20px;
+  padding-bottom: 20px;
+}
+
+.noticias > div > div {
+  width: 90vw;
+  height: 90vw;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.noticias > div > div a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  text-decoration: none;
+}
+
+.noticias > div > div a > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: grey;
+}
+
+.noticias > div > div a > div {
+  width: 90vw;
+  height: 90vw;
+  background-color: rgba(0, 0, 0, 0.3);
+  margin-top: -90vw;
+  padding: 15px 15px 15px 15px;
+}
+
+.noticias > div > div a > div h3 {
+  font-size: 20px;
+  color: white;
+}
+
+.noticia {
+  width: 100%;
+  padding: 20px 15px 20px 15px;
+}
+
+.noticia > img {
+  display: block;
+  width: 90vw;
+  background-color: cyan;
+}
+
+.noticia > h2 {
+  font-weight: 500;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.noticia > div:first-of-type {
+  margin-top: 20px;
+}
+
+.noticia > div:first-of-type > p {
+  margin-top: 10px;
+}
+
+.noticia > p {
+  margin-top: 20px;
+}
+/*# sourceMappingURL=noticias.css.map */

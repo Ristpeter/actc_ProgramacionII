@@ -1,0 +1,43 @@
+.marcas{
+    padding: 20px 15px 20px 15px;
+
+    >div{
+        display: grid;
+        grid-template-columns: 1fr;
+        
+        >div{
+            width: 100%;
+            border: 1px solid #333;
+            border-radius: 5px;
+            margin-top: 20px;
+            padding: 10px 10px 10px 10px;
+
+            >div:first-of-type{
+                display: grid;
+                grid-template-rows: 1fr;
+                grid-template-columns: 1fr 1fr;
+                
+                >h3{
+                    height: fit-content;
+                    display: flex;
+                    align-self: center;
+                }
+
+                >img{
+                    display: flex;
+                    width: 100px;
+                    height: 50px;
+                    background-color: brown;
+                    justify-self: right;
+                }
+            }
+
+            >div:last-of-type{
+                margin-top: 10px;
+                >p{
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}
