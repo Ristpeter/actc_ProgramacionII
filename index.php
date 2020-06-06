@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="css/noticias.css"/>
     <link rel="stylesheet" href="css/pilotos.css"/>
     <link rel="stylesheet" href="css/marcas.css"/>
+    <link rel="stylesheet" href="css/encuestas.css"/>
+    <link rel="stylesheet" href="css/register.css"/>
 </head>
 <body>
     <header>
@@ -30,10 +32,13 @@
         <nav>
             <ul>
                 <li>User</li>
-                <li><a href="?seccion=inicio">Inicio</a></li>
-                <li><a href="?seccion=pilotos">Pilotos</a></li>
-                <li><a href="?seccion=marcas">Marcas</a></li>
-                <li><a href="?seccion=encuesta">Encuesta</a></li>
+                <?php
+                
+                    foreach ($aMenu as $key => $value) {
+                        echo '<li><a href="'. $value .'">'.$key.'</a></li>';
+                    }
+                
+                ?>
             </ul>
         </nav>
     
@@ -64,6 +69,10 @@
             }else if($_GET['seccion'] == 'encuesta'){
 
                 require_once('modulos/encuesta.php');
+                
+            }else if($_GET['seccion'] == 'register'){
+
+                require_once('modulos/register.php');
                 
             }else{
                 require_once('modulos/inicio.php');

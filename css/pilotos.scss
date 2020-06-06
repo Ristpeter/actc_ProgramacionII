@@ -24,9 +24,11 @@ $color1:#AD2621;
                 color: black;
                 >img{
                     display: block;
-                    width: 100%;
+                    width: 50%;
+                    margin-left: auto;
+                    margin-right: auto;
                     height: 250px;
-                    background-color: grey;
+                    margin-top: 10px;
                 }
 
                 >div{
@@ -41,9 +43,8 @@ $color1:#AD2621;
                             >img{
                                 margin-top: 10px;
                                 display: block;
-                                width: 100px;
+                                width: 80px;
                                 height: 50px;
-                                background-color: brown;
                             }
                         }
 
@@ -82,9 +83,10 @@ $color1:#AD2621;
 
     >img{
         display: block;
-        width: 100%;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
         height: 250px;
-        background-color: grey;
     }
 
     >h2{
@@ -100,7 +102,6 @@ $color1:#AD2621;
             display: block;
             width: 80px;
             height: 80px;
-            background-color: brown;
         }
 
         >p{
@@ -133,12 +134,12 @@ $color1:#AD2621;
             display: flex;
             align-self: center;
             font-weight: 500;
+            font-weight: 900;
         }
 
         >a{
             display: flex;
             justify-self: right;
-            background-color: green;
             >img{
                 width: 100px;
                 height: 50px;
