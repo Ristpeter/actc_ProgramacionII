@@ -21,3 +21,31 @@ function displayMenu(){
     }
 
 }
+
+var perfilImage = d.querySelector('#perfilImg'), divPerfilImage = d.querySelector('.divPerfilImage'), perfilRadio = d.querySelectorAll('.perfilRadio');
+
+perfilImage.addEventListener('click',changePerfilImage);
+
+perfilRadio.forEach(element => {
+    element.addEventListener('click',changePerfilImage);
+});
+
+function changePerfilImage(){
+
+    if(this.getAttribute('id') == 'perfilImg'){
+        if(divPerfilImage.style.display == 'none'){
+            divPerfilImage.setAttribute('style', 'display:grid;');
+        }else{
+            divPerfilImage.setAttribute('style', 'display:none;');
+        }
+    }else{
+        let img = this.firstChild.getAttribute('src'), name = this.firstChild.getAttribute('alt');
+
+        perfilImage.setAttribute('src', img);
+        perfilImage.setAttribute('alt', name);
+        
+
+
+    }
+
+}

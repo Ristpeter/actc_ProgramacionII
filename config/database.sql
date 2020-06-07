@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS usuarios(
     nacimiento DATE,
     icono TINYINT(1),
     piloto_id TINYINT(2) UNSIGNED NOT NULL,
-    FOREIGN KEY(piloto_id) REFERENCES pilotos(id) ON DELETE CASCADE,
+    FOREIGN KEY(piloto_id) REFERENCES pilotos(id),
     PRIMARY KEY(id)
 )ENGINE=innoDB;
 
