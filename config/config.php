@@ -1,5 +1,13 @@
 <?php
 
+if(!isset($_SESSION['usuario']['id'])){
+    session_start();
+
+}
+
+
+
+
 $sv = "localhost";
 $usr = "root";
 $pass = "";

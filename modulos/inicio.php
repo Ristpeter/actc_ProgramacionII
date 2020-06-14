@@ -1,9 +1,10 @@
 <?php
 
-    $qry = "SELECT titulo, imagen, link FROM noticias";
-    $rta = mysqli_query($cnx, $qry);
+
+    $qryNoticias = "SELECT titulo, imagen, link FROM noticias";
+    $rtaNoticias = mysqli_query($cnx, $qryNoticias);
     $noticias=[];
-    while($row = mysqli_fetch_assoc($rta)){
+    while($row = mysqli_fetch_assoc($rtaNoticias)){
         array_push($noticias, $row);
     }
 
@@ -26,6 +27,8 @@
                     echo '</a>';
                 echo '</div>';
             }
+            print_r($_SESSION);
+
         ?>
 
     </div>

@@ -1,0 +1,107 @@
+.perfil {
+  padding: 20px 15px 20px 15px;
+}
+
+.perfil form {
+  margin-top: 20px;
+}
+
+.perfil form p {
+  color: #333;
+  font-size: 15px;
+}
+
+.perfil form input[type=submit] {
+  background-color: #AD2621;
+  width: 30%;
+  height: 25px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  color: white;
+  text-transform: uppercase;
+  font-size: 400;
+}
+
+.perfil form input[type=text], .perfil form input[type=email], .perfil form input[type=password], .perfil form input[type=date], .perfil form select {
+  width: 65%;
+}
+
+.perfil form:first-of-type > div > img {
+  display: block;
+  width: 40vw;
+  height: 40vw;
+  border: 3px solid #333;
+  border-radius: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.perfil form:first-of-type > div > div {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  -ms-grid-rows: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+  border: 1px solid #333;
+  border-radius: 5px;
+  grid-gap: 10px;
+  padding: 10px 0 10px 0;
+  margin-top: 10px;
+}
+
+.perfil form:first-of-type > div > div > label {
+  display: block;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: center;
+      align-self: center;
+  justify-self: center;
+  background-color: white;
+}
+
+.perfil form:first-of-type > div > div > input[type=radio] {
+  display: none;
+}
+
+.perfil form:first-of-type input[type=submit] {
+  display: block;
+  width: 50%;
+  height: 30px;
+  background-color: #AD2621;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  color: white;
+  margin-top: 10px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.perfil > a {
+  display: block;
+  width: 70%;
+  height: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+  border: 1px solid #AD2621;
+  border-radius: 10px;
+  color: #333;
+  text-align: center;
+  padding-top: 8px;
+}
+/*# sourceMappingURL=perfil.css.map */

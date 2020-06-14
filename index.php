@@ -19,19 +19,45 @@
     <link rel="stylesheet" href="css/marcas.css"/>
     <link rel="stylesheet" href="css/encuestas.css"/>
     <link rel="stylesheet" href="css/register.css"/>
+    <link rel="stylesheet" href="css/perfil.css"/>
 </head>
 <body>
     <header>
-        <h1>Asosiación Corredores de Turismo de Carretera</h1>
-        <div></div>
         <label>
             <span></span>
             <span></span>
             <span></span>
         </label>
+
+        <h1>Asosiación Corredores de Turismo de Carretera</h1>
+
+        <label></label>
+
         <nav>
             <ul>
-                <li>User</li>
+                <li>
+                    <?php
+                        if(!onSession()){
+                            echo '<div class="navNoLog">';
+                                echo '<a href="?seccion=login">Iniciar sesión</a>';
+                                echo '<a href="?seccion=register">Registrarse</a>';
+                            echo '</div>';
+                        }else{
+                            echo '<div class="navLog">';
+                                echo '<div>';
+                                    echo  '<div>';
+                                        echo '<p>'. $_SESSION['usuario']['usuario'] .'</p>';
+                                        echo '<p><a href="?seccion=perfil">Editar perfil</a></p>';
+                                    echo '</div>';
+                                echo  '</div>';
+                                echo '<div>';
+                                    echo '<img src="img/marcas/'. $_SESSION['datos']['marcaImagen'] .'" alt="'. $_SESSION['datos']['marcaNombre'] .'" />';
+                                echo '</div>';
+                            echo '</div>';
+                        }
+                    
+                    ?>
+                </li>
                 <?php
                 
                     foreach ($aMenu as $key => $value) {
@@ -46,6 +72,8 @@
 
     <main>
         <?php
+
+            
 
             if(!isset($_GET['seccion']) || $_GET['seccion'] == 'inicio'){
 
@@ -73,6 +101,18 @@
             }else if($_GET['seccion'] == 'register'){
 
                 require_once('modulos/register.php');
+                
+            }else if($_GET['seccion'] == 'login'){
+
+                require_once('modulos/login.php');
+                
+            }else if($_GET['seccion'] == 'login'){
+
+                require_once('modulos/login.php');
+                
+            }else if($_GET['seccion'] == 'perfil'){
+
+                require_once('modulos/perfil.php');
                 
             }else{
                 require_once('modulos/inicio.php');

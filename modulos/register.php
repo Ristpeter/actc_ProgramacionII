@@ -18,47 +18,13 @@
         array_push($pilotos,$row);
     }
  
-    if(!empty($_POST)){
-
-        if($_POST['usuario'] == null){
-            
-            header('location:?seccion=register&err=err&msj=usuario');
-
-        }else if($_POST['nombre'] == null){
-            
-            header('location:?seccion=register&err=err&msj=nombre');
-
-        }else if($_POST['apellido'] == null){
-            
-            header('location:?seccion=register&err=err&msj=apellido');
-
-        }else if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-            
-            header('location:?seccion=register&err=err&msj=email');
-
-        }else if($_POST['contraseña'] == null){
-
-            header('location:?seccion=register&err=err&msj=contraseña');
-
-        }else if($_POST['confirmarContraseña'] == null || $_POST['confirmarContraseña'] !== $_POST['contraseña']){
-
-            header('location:?seccion=register&err=err&msj=confirmarContraseña');
-
-        }else{
-
-            $qry = "INSERT INTO usuarios (usuario, nombre, apellido, email, contraseña, nacimiento, icono, piloto_id) VALUES ($_POST['usuario'],$_POST['nombre'],$_POST['apellido'], $_POST['email'], $contraseña, $_POST['nacimiento'], $_POST['icono']);";
-
-        }
-
-    }
-
 ?>
 
 <section class="register">
 
 <h2>Registrate y sé un piloto</h2>
 
-<form method="POST">
+<form method="POST" action="acciones/register.php">
     <div>
         <img src="img/registerPerfil.png" alt="Imagen de perfil" id="perfilImg"/>
 

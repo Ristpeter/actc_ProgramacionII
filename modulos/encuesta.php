@@ -1,16 +1,6 @@
 <?php
 
-    if(!empty($_POST['id'])){
-        
-        $id = $_POST['id'];
-
-        $qryEncuesta = "UPDATE encuestas SET votos=votos+1 WHERE id=$id;";
-    
-        mysqli_query($cnx, $qryEncuesta);
-
-    }
-
-    $qry = "SELECT encuestas.id, encuestas.votos, pilotos.nombre, pilotos.imagen, pilotos.numero, pilotos.equipo, pilotos.casco, marcas.nombre AS marcaNombre, marcas.imagen AS marcaImagen FROM encuestas, pilotos, marcas wHERE encuestas.piloto=pilotos.id AND pilotos.marca=marcas.id;";
+    $qry = "SELECT encuestas.id, encuestas.votos, pilotos.nombre, pilotos.imagen, pilotos.numero, pilotos.equipo, pilotos.casco, marcas.nombre AS marcaNombre, marcas.imagen AS marcaImagen FROM encuestas, pilotos, marcas WHERE encuestas.piloto=pilotos.id AND pilotos.marca=marcas.id;";
 
     $rta = mysqli_query($cnx, $qry);
 
@@ -50,7 +40,7 @@
                             echo '<p>Total de votos <span>'. $encuesta[$i]['votos'] .'</span></p>';
                             echo '<p>Porcentaje <span>'. round(($encuesta[$i]['votos'] * 100 / $votosTotales),1) .'%</span></p>';
                         echo '</div>';
-                        echo '<form method="post"><input type="hidden" name="id" value="'. $encuesta[$i]['id'] .'"/><input type="submit" value="Votar"/></form>';
+                        echo '<form method="post" action="acciones/votacion.php"><input type="hidden" name="id" value="'. $encuesta[$i]['id'] .'"/><input type="submit" value="Votar"/></form>';
                 echo '</div>';
             echo '</div>';
 

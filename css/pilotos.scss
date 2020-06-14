@@ -157,4 +157,56 @@ $color1:#AD2621;
             margin-top: 10px;
         }
     }
+
+    >div:last-of-type{
+        
+        >ul{
+            list-style: none;
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-gap: 20px;
+
+            >li{
+                background-color: brown;
+                width: 100%;
+                height: 120px;
+                
+                >a{
+                    display: block;
+                    width: 100%;
+                    height: 120px;
+                    background-color: yellow;
+                    position: absolute;
+
+                    >div{
+                        width: 100%;
+                        height: 120px;
+                        background-color:rgba($color: #000000, $alpha: 0.5);
+
+                        >img{
+                            width: 100%;
+                            height: 120px;
+                            display: block;
+                            
+                        }
+                    }
+
+                    >h4{
+                        position: absolute;
+                        top:15px;
+                        left: 10px;
+                        color: white;
+                    }
+                }
+            }
+        }
+
+        >a{
+            display: inline-block;
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+    }
 }
