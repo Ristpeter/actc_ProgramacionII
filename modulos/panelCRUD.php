@@ -13,21 +13,9 @@ $resultado = [];
 while($row = mysqli_fetch_assoc($rta)){
 
     array_push($resultado,$row);
-}
-
-
-
-
-
+}   
 
 echo '<section class="panelCrud">';
-    print_r($resultado);
-
-    echo  '<ul>';
-
-        for($i = 0; $i < count($resultado); $i++){
-
-            echo '<li>';
 
                 if($table == 'usuarios'){
                     require_once('modulos/panelUsuarios.php');
@@ -41,11 +29,6 @@ echo '<section class="panelCrud">';
                     require_once('modulos/panelVotaciones.php');
                 }
 
-                
-            echo '</li>';
-        }
-
-    echo '</ul>';
 echo '</section>';
 
 ?>

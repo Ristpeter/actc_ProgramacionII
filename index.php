@@ -51,7 +51,13 @@
                                     echo '</div>';
                                 echo  '</div>';
                                 echo '<div>';
-                                    echo '<img src="img/marcas/'. $_SESSION['datos']['marcaImagen'] .'" alt="'. $_SESSION['datos']['marcaNombre'] .'" />';
+                                    if($_SESSION['usuario']['icono'] == 0){
+                                        echo '<img src="img/registerPerfil.png" alt="Foto de perfil" />';
+                                    }else{
+                                        echo '<img src="img/marcas/'. $_SESSION['datos']['marcaImagen'] .'" alt="'. $_SESSION['datos']['marcaNombre'] .'" />';
+
+                                    }
+                                    
                                 echo '</div>';
                             echo '</div>';
                         }

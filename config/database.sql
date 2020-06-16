@@ -52,6 +52,8 @@ CREATE TABLE IF NOT EXISTS usuarios(
     email VARCHAR(100) NOT NULL UNIQUE,
     contraseña VARCHAR(250) NOT NULL,
     nacimiento DATE,
+    isAdmin TINYINT(1) NOT NULL,
+    Voto TINYINT(1) NOT NULL,
     icono TINYINT(1) UNSIGNED NOT NULL,
     FOREIGN KEY(icono) REFERENCES marcas(id),
     piloto_id TINYINT(2) UNSIGNED NOT NULL,
@@ -67,9 +69,9 @@ CREATE TABLE IF NOT EXISTS comentarios(
     fecha DATE NOT NULL,
     hora TIME NOT NULL,
     usuario_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY(usuario_id) REFERENCES usuarios(id),
+    FOREIGN KEY(usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
     noticia_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY(noticia_id) REFERENCES noticias(id),
+    FOREIGN KEY(noticia_id) REFERENCES noticias(id) ON DELETE CASCADE,
     PRIMARY KEY(id)
 )ENGINE=innoDB;
 

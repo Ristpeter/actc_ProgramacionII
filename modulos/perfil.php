@@ -24,7 +24,18 @@
 
     <form action="acciones/perfil.php" method="POST">
         <div>
-            <img src="img/marcas/<?php echo $_SESSION['datos']['marcaImagen']; ?>" alt="Imagen de perfil" id="perfilImg"/>
+
+            <?php
+            
+            if($_SESSION['usuario']['icono'] == 0){
+                echo '<img id="perfilImg" src="img/registerPerfil.png" alt="Foto de perfil" />';
+            }else{
+                echo '<img id="perfilImg" src="img/marcas/'. $_SESSION['datos']['marcaImagen'] .'" alt="'. $_SESSION['datos']['marcaNombre'] .'" />';
+
+            }
+
+            ?>
+            
 
             <div class="divPerfilImage" style="display:none;">
             <input type="radio" name="icono" value="<?php echo $_SESSION['datos']['marcasID']; ?>" checked/>
