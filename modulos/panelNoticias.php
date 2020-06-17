@@ -1,6 +1,48 @@
 
 <?php
 
+ /*------------------------*/
+
+ $qryPilotos = "SELECT id, nombre FROM pilotos";
+ $rtaPilotos = mysqli_query($cnx, $qryPilotos);
+
+ $pilotos = [];
+
+ while($row = mysqli_fetch_assoc($rtaPilotos)){
+     array_push($pilotos, $row);
+ }
+
+
+ $qryPilotosNoticias = "SELECT id, piloto, noticia FROM pilotos_has_noticias";
+ $rtaPilotosNoticias = mysqli_query($cnx, $qryPilotosNoticias);
+
+ $pilotosNoticias = [];
+
+ while($row = mysqli_fetch_assoc($rtaPilotosNoticias)){
+     array_push($pilotosNoticias, $row);
+ }
+
+
+ $qryMarcas = "SELECT id, nombre FROM marcas";
+ $rtaMarcas = mysqli_query($cnx, $qryMarcas);
+
+ $marcas = [];
+
+ while($row = mysqli_fetch_assoc($rtaMarcas)){
+     array_push($marcas, $row);
+ }
+
+ $qryMarcasNoticias = "SELECT id, marca, noticia FROM marcas_has_noticias";
+ $rtaMarcasNoticias = mysqli_query($cnx, $qryMarcasNoticias);
+
+ $marcasNoticias = [];
+
+ while($row = mysqli_fetch_assoc($rtaMarcasNoticias)){
+     array_push($marcasNoticias, $row);
+ }
+
+  /*------------------------*/
+
     if(isset($_POST['id'])){
 
         $changes = '';
@@ -83,78 +125,117 @@
             }
 
         }        
+        $noticiasConPilotos = [];
 
-        if(isset($_POST['pilotosNoticias'])){
+        for ($x=0; $x < count($pilotosNoticias); $x++) { 
+            if($pilotosNoticias[$x]['noticia'] == $_POST['id']){
+                array_push($noticiasConPilotos, $pilotosNoticias[$x]['piloto']);
+            }
+        }
+        
 
-            for ($i=0; $i < count($pilotosNoticias); $i++) { 
-                
-                if(!in_array($pilotosNoticias[$i]['piloto'], $_POST['pilotosNoticias'])){
+        $noticiasConMarcas = [];
 
-                    $pilotoID = $pilotosNoticias[$i]['piloto'];
-                    $noticiaID = $_POST['id'];
+        for ($z=0; $z < count($marcasNoticias); $z++) { 
+            if($marcasNoticias[$z]['noticia'] == $_POST['id']){
+                array_push($noticiasConMarcas, $marcasNoticias[$z]['marca']);
+            }
+        }
+        echo 'pilotos';
+        print_r($noticiasConPilotos);
+        echo 'marcas';
+        print_r($noticiasConMarcas);
 
-                    $qryDeletePiloto = "DELETE FROM pilotos_has_noticias WHERE piloto='$pilotoID' AND noticia='$noticiaID'";
-                    $rtaDeletePiloto = mysqli_query($cnx, $qryDeletePiloto);
+        echo '<p>-----</p>';
 
-                    if($rtaDeletePiloto){
+        print_r($_POST['pilotosNoticias']);
+
+        echo $changes;
+
+        $noticiaID = $_POST['id'];
+
+        if(!isset($_POST['pilotosNoticias'])){
+            $qryDelete = "DELETE FROM pilotos_has_noticias WHERE noticia='$noticiaID'";
+            $rtaDelete = mysqli_query($cnx, $qryDelete);
+
+            if($rtaDelete){
+                echo 'listo';
+            }else{
+                echo 'no';
+            }
+        }else{
+
+            $pilotoNot= $_POST['pilotosNoticias'];
+
+            for ($l=0; $l < count($_POST['pilotosNoticias']) ; $l++) { 
+
+                if(!in_array($pilotoNot[$l], $noticiasConPilotos)){
+                    $qryInser = " INSERT INTO pilotos_has_noticias (piloto, noticia) VALUES ('$pilotoNot[$l]', '$noticiaID')";
+                    $rtaInser = mysqli_query($cnx, $qryInser);
+
+                    if($rtaInser){
                         echo 'hecho';
-                    }else{
-                        echo 'fallo';
                     }
                 }
+            }
 
+            for ($p=0; $p < count($noticiasConPilotos) ; $p++) { 
+
+                if(!in_array($noticiasConPilotos[$p], $pilotoNot)){
+                    $qryDelete = "DELETE FROM pilotos_has_noticias WHERE noticia='$noticiaID' AND piloto='$noticiasConPilotos[$p]'";
+                    $rtaDelete = mysqli_query($cnx, $qryDelete);
+
+                    if($rtaDelete){
+                        echo 'hecho';
+                    }
+                }
             }
 
         }
 
-        echo $changes;
+        if(!isset($_POST['marcasNoticias'])){
+            $qryDelete = "DELETE FROM marcas_has_noticias WHERE noticia='$noticiaID'";
+            $rtaDelete = mysqli_query($cnx, $qryDelete);
+
+            if($rtaDelete){
+                echo 'listo';
+            }else{
+                echo 'no';
+            }
+        }else{
+
+            $marcaNot= $_POST['marcasNoticias'];
+
+            for ($l=0; $l < count($marcaNot) ; $l++) { 
+
+                if(!in_array($marcaNot[$l], $noticiasConMarcas)){
+                    $qryInser = " INSERT INTO marcas_has_noticias (marca, noticia) VALUES ('$marcaNot[$l]', '$noticiaID')";
+                    $rtaInser = mysqli_query($cnx, $qryInser);
+
+                    if($rtaInser){
+                        echo 'hecho';
+                    }
+                }
+            }
+
+            for ($p=0; $p < count($noticiasConMarcas) ; $p++) { 
+
+                if(!in_array($noticiasConMarcas[$p], $marcaNot)){
+                    $qryDelete = "DELETE FROM marcas_has_noticias WHERE noticia='$noticiaID' AND marca='$noticiasConMarcas[$p]'";
+                    $rtaDelete = mysqli_query($cnx, $qryDelete);
+
+                    if($rtaDelete){
+                        echo 'hecho';
+                    }
+                }
+            }
+
+        }
+
+        echo $noticiaID;
 
     }
 
-    /*------------------------*/
-
-    $qryPilotos = "SELECT id, nombre FROM pilotos";
-    $rtaPilotos = mysqli_query($cnx, $qryPilotos);
-
-    $pilotos = [];
-
-    while($row = mysqli_fetch_assoc($rtaPilotos)){
-        array_push($pilotos, $row);
-    }
-
-
-    $qryPilotosNoticias = "SELECT id, piloto, noticia FROM pilotos_has_noticias";
-    $rtaPilotosNoticias = mysqli_query($cnx, $qryPilotosNoticias);
-
-    $pilotosNoticias = [];
-
-    while($row = mysqli_fetch_assoc($rtaPilotosNoticias)){
-        array_push($pilotosNoticias, $row);
-    }
-
-    print_r($pilotosNoticias);
-
-    $qryMarcas = "SELECT id, nombre FROM marcas";
-    $rtaMarcas = mysqli_query($cnx, $qryMarcas);
-
-    $marcas = [];
-
-    while($row = mysqli_fetch_assoc($rtaMarcas)){
-        array_push($marcas, $row);
-    }
-
-    $qryMarcasNoticias = "SELECT id, marca, noticia FROM marcas_has_noticias";
-    $rtaMarcasNoticias = mysqli_query($cnx, $qryMarcasNoticias);
-
-    $marcasNoticias = [];
-
-    while($row = mysqli_fetch_assoc($rtaMarcasNoticias)){
-        array_push($marcasNoticias, $row);
-    }
-
-    if(isset($_POST['id'])){
-
-    }
 
     for ($i=0; $i < count($resultado); $i++) { 
      

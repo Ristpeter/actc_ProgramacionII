@@ -27,8 +27,6 @@
                     echo '</a>';
                 echo '</div>';
             }
-            print_r($_SESSION);
-
         ?>
 
     </div>

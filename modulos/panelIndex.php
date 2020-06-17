@@ -3,7 +3,7 @@
 $panelMenu = [
     'Cuentas' => '&edit=usuarios',
     'Noticias' => '&edit=noticias',
-    'Pilotos' => '?&edit=pilotos',
+    'Pilotos' => '&edit=pilotos',
     'Marcas' => '&edit=marcas',
     'Votaciones' => '&edit=votaciones',
 ];
