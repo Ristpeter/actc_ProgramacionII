@@ -2,6 +2,21 @@ var d = document, _c = console.log, body = d.querySelector('body');
 
 /* Menú animación */
 
+if(d.querySelector('#btnCerrarStatus')){
+
+    var btnCerrarStatus = d.querySelector('#btnCerrarStatus');
+
+    btnCerrarStatus.addEventListener('click', cerrarModal);
+
+}
+
+
+function cerrarModal (){
+
+    body.removeChild(this.parentNode);
+    console.log(this.parentNode);
+}
+
 var menuBtn = d.querySelector('header label');
 
 menuBtn.addEventListener('click', displayMenu);
@@ -22,13 +37,17 @@ function displayMenu(){
 
 }
 
-var perfilImage = d.querySelector('#perfilImg'), divPerfilImage = d.querySelector('.divPerfilImage'), perfilRadio = d.querySelectorAll('.perfilRadio');
+if(d.querySelector('#perfilImg')){
+    var perfilImage = d.querySelector('#perfilImg'), divPerfilImage = d.querySelector('.divPerfilImage'), perfilRadio = d.querySelectorAll('.perfilRadio');
 
-perfilImage.addEventListener('click',changePerfilImage);
+    perfilImage.addEventListener('click',changePerfilImage);
 
-perfilRadio.forEach(element => {
-    element.addEventListener('click',changePerfilImage);
-});
+    perfilRadio.forEach(element => {
+        element.addEventListener('click',changePerfilImage);
+    });
+}
+
+
 
 function changePerfilImage(){
 
@@ -49,3 +68,5 @@ function changePerfilImage(){
     }
 
 }
+
+

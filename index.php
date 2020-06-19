@@ -22,14 +22,14 @@
     <link rel="stylesheet" href="css/perfil.css"/>
 </head>
 <body>
-    <header>
+    <header class="headerIndex">
         <label>
             <span></span>
             <span></span>
             <span></span>
         </label>
 
-        <h1>Asosiación Corredores de Turismo de Carretera</h1>
+        <h1><a href="index.php">Asosiación Corredores de Turismo de Carretera</a></h1>
 
         <label></label>
 
@@ -73,8 +73,52 @@
                 ?>
             </ul>
         </nav>
+
+
     
     </header>
+
+    <?php
+        
+            if(isset($_GET['estado']) && isset($_GET['mensaje']) && $_GET['estado'] == 'error'){
+
+                echo '<div class="msjEstado mensajeErr">';
+
+                    foreach ($aMensajesError as $key => $value) {
+                        
+                        if($key == $_GET['mensaje']){
+
+                            echo '<p>'. $value .'</p>';
+
+                        }
+
+                    }
+
+                    echo '<label id="btnCerrarStatus"><span>Cerrar</span></label>';
+
+                echo '</div>';
+
+            }else if(isset($_GET['estado']) && isset($_GET['mensaje']) && $_GET['estado'] == 'ok'){
+
+                echo '<div class="msjEstado mensajeOk">';
+
+                    foreach ($aMensajesOk as $key => $value) {
+                            
+                        if($key == $_GET['mensaje']){
+
+                            echo '<p>'. $value .'</p>';
+
+                        }
+
+                    }
+
+                    echo '<label id="btnCerrarStatus"><span>Cerrar</span></label>';
+
+                echo '</div>';
+
+            }
+
+    ?>
 
     <main>
         <?php

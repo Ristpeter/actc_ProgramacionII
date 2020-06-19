@@ -3,7 +3,7 @@
 require_once("../config/config.php");
 
 if(empty($_POST["usuario"]) || empty($_POST["contraseña"])){
-    header("Location:../index.php?seccion=login&err=err&msj=obligatorios");
+    header("Location:../index.php?seccion=login&estado=error&mensaje=datosObligatorios");
     die();
 }
 
@@ -14,7 +14,7 @@ $columna = "usuario";
 if(strpos($usuario,"@") !== false){
 
     if(!filter_var($usuario, FILTER_VALIDATE_EMAIL)){
-        header("Location: ../index.php?seccion=login&err=err&msj=email");
+        header("Location: ../index.php?seccion=login&estado=error&mensaje=emailInvalido");
         die();
     }
     $columna = "email";
@@ -27,7 +27,7 @@ $rtaLogin = mysqli_query($cnx,$qryLogin);
 
 if(mysqli_num_rows($rtaLogin) == 0){
 
-    header("Location: ../?seccion=login&estado=error&mensaje=registro");
+    header("Location: ../?seccion=login&estado=error&mensaje=datosErroneos");
     die();
 
 }
@@ -36,7 +36,7 @@ $userLogin = mysqli_fetch_assoc($rtaLogin);
 
 if(!password_verify($_POST['contraseña'], $userLogin['contraseña'])){
     
-    header("Location: ../?seccion=login&estado=error&mensaje=login");
+    header("Location: ../?seccion=login&estado=error&mensaje=datosErroneos");
     die();
 
 }

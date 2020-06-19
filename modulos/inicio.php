@@ -27,6 +27,7 @@
                     echo '</a>';
                 echo '</div>';
             }
+
         ?>
 
     </div>

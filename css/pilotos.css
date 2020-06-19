@@ -236,4 +236,34 @@
   margin-top: 30px;
   margin-bottom: 20px;
 }
+
+@media (min-width: 350px) {
+  .pilotos > div > div {
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+  }
+  .piloto {
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .piloto > div:last-of-type > ul > li > a {
+    max-width: 270px;
+  }
+}
+
+@media (min-width: 600px) {
+  .pilotos h2 {
+    margin-left: 5vw;
+  }
+  .pilotos > div {
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 /*# sourceMappingURL=pilotos.css.map */

@@ -15,6 +15,13 @@ body {
   overflow-x: hidden;
 }
 
+.loginPanel {
+  width: 100%;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .loginPanel > form {
   width: 90%;
   height: -webkit-fit-content;
@@ -49,5 +56,116 @@ body {
   color: white;
   font-weight: 400;
   text-transform: uppercase;
+}
+
+.panelMenu {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+  margin-top: 20px;
+  max-width: 500px;
+}
+
+.panelMenu > a {
+  display: block;
+  width: 100%;
+  background-color: #2A73AD;
+  height: 200px;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 90px;
+  color: white;
+  font-weight: 600;
+}
+
+.cardEdit {
+  max-width: 400px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #2A73AD;
+  margin-top: 20px;
+  padding: 20px 20px 20px 20px;
+}
+
+.cardEdit p {
+  margin-top: 10px;
+}
+
+.cardEdit input {
+  width: 100%;
+}
+
+.cardEdit select {
+  width: 100%;
+}
+
+.cardEdit input[type=submit] {
+  margin-top: 20px;
+}
+
+.cardEdit textarea {
+  width: 100%;
+  resize: none;
+  height: 200px;
+}
+
+.gridNN {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+}
+
+#selectNN {
+  width: 100%;
+  height: 200px;
+  background-color: #2FA0FA;
+  overflow-y: scroll;
+}
+
+#selectNN > div {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 20px 1fr;
+      grid-template-columns: 20px 1fr;
+  margin-top: 10px;
+}
+
+#selectNN > div > input[type=checkbox] {
+  display: inline-block;
+}
+
+#selectNN > div > label {
+  display: inline-block;
+}
+
+#Volver {
+  display: block;
+  background-color: white;
+  width: 40px;
+  height: 40px;
+  -webkit-clip-path: polygon(40% 0%, 40% 20%, 100% 20%, 100% 80%, 40% 80%, 40% 100%, 0% 50%);
+          clip-path: polygon(40% 0%, 40% 20%, 100% 20%, 100% 80%, 40% 80%, 40% 100%, 0% 50%);
+}
+
+@media (min-width: 600px) {
+  .panelCrud {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
 }
 /*# sourceMappingURL=panel.css.map */

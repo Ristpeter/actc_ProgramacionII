@@ -86,16 +86,19 @@
             for ($i=0; $i < count($comentarios); $i++) { 
 
                 echo '<li>';
+                    echo '<div>';
                 
-                    if(isset($_SESSION['usuario']) && $comentarios[$i]['usuario'] == $_SESSION['usuario']['usuario']){
-                        echo '<label><form method="POST" action="acciones/borrarComentario.php"><input type="hidden" name="id" value="'. $comentarios[$i]['id'] .'"/><input type="hidden" name="link" value="'. $link .'"/> <input type="submit" value="Eliminar"/></form></label>';
-                    }
+            
                     echo '<div>';
                         echo '<img src="img/marcas/'. $comentarios[$i]['imagen'] .'" alt="'. $comentarios[$i]['marca'] .'" />';
                         echo '<div>';
                             echo '<h4>'. $comentarios[$i]['usuario'] .'</h4>';
                             echo '<p>'. $comentarios[$i]['fecha'] .'</p>';
                             echo '</div>';
+                    echo '</div>';
+                    if(isset($_SESSION['usuario']) && $comentarios[$i]['usuario'] == $_SESSION['usuario']['usuario']){
+                        echo '<label><span id="borrarComent"></span><form method="POST" action="acciones/borrarComentario.php"><input type="hidden" name="id" value="'. $comentarios[$i]['id'] .'"/><input type="hidden" name="link" value="'. $link .'"/> <input type="submit" value="Eliminar"/></form></label>';
+                    }
                     echo '</div>';
                     echo '<div>';
                         echo '<p>'. $comentarios[$i]['comentario'] .'</p>';
@@ -105,7 +108,7 @@
 
             echo '</ul>';
         }else{
-            echo '<p>No hay comentarios</p>';
+            echo '<p style="margin-bottom:30px; margin-top:10px;">No hay comentarios</p>';
         }
 
         if(isset($_SESSION['usuario'])){

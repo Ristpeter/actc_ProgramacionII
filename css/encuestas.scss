@@ -129,3 +129,64 @@ $color1:#AD2621;
 
 
 }
+
+@media (min-width:300px){
+
+    .encuesta{
+        >div{
+
+    
+            >div{
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 0.5fr;
+                border: 1px solid #333;
+                border-radius: 5px;
+                padding-top: 10px;
+    
+                >img{
+                    display: block;
+                    width:50%;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+        }
+    }
+
+}
+
+@media (min-width:600px){
+
+    .encuesta{
+        >div{
+
+            grid-template-columns: 1fr 1fr 1fr;
+
+    
+            >div{
+
+                grid-template-rows: 0.5fr 1fr;
+
+            }
+        }
+    }
+
+}
+
+@media (min-width:600px){
+
+    .encuesta{
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        >div{   
+            >div{
+
+                grid-template-rows: 1fr 0.5fr;
+
+            }
+        }
+    }
+
+}

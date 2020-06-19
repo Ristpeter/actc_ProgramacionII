@@ -25,7 +25,7 @@ echo '<section class="panelCrud">';
                     require_once('modulos/panelPilotos.php');
                 }else if($table == 'marcas'){
                     require_once('modulos/panelMarcas.php');
-                }else if($table == 'votaciones'){
+                }else if($table == 'encuestas'){
                     require_once('modulos/panelVotaciones.php');
                 }
 

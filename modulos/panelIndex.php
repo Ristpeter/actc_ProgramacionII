@@ -5,18 +5,22 @@ $panelMenu = [
     'Noticias' => '&edit=noticias',
     'Pilotos' => '&edit=pilotos',
     'Marcas' => '&edit=marcas',
-    'Votaciones' => '&edit=votaciones',
+    'Votaciones' => '&edit=encuestas',
 ];
 
 ?>
 
-<section>
+<section class="panelMenu">
+
+
 
 <?php
+
 
     foreach ($panelMenu as $key => $value) {
         echo '<a href="?seccion=panelcrud'. $value .'">'. $key .'</a>';
     }
+
 
     
 ?>

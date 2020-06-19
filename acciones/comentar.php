@@ -24,8 +24,8 @@ $qryComentar ="INSERT INTO comentarios (comentario, fecha, usuario_id, noticia_i
     $rtaComentar = mysqli_query($cnx, $qryComentar);
 
     if(!$rtaComentar){
-        header("Location: ../index.php?seccion=inicio&noticia=". $link."&err=err");
+        header("Location: ../index.php?seccion=inicio&noticia=". $link."&estado=error&mensaje=errorAlComentar");
         die();
     }else{
-        header("Location: ../index.php?seccion=inicio&noticia=".$link."&ok=ok");
+        header("Location: ../index.php?seccion=inicio&noticia=".$link."&estado=ok&mensaje=comentarioEnviado");
     }

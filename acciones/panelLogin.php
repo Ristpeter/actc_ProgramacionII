@@ -12,7 +12,8 @@ require_once("../config/config.php");
             header('location:../panel.php');
         }else{
             $_SESSION['usuario']['panel'] = 0;
-            header('location:?estado=err&err=errcontra');
+            header('location:../index.php?estado=error&mensaje=datosErroneos');
+            die();
         }
 
     }

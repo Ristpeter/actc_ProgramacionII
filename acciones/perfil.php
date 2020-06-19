@@ -16,49 +16,56 @@ if($key == 'icono' && $_SESSION['datos']['marcasID'] != $_POST[$keys[0]]){
 
     $rta = mysqli_query($cnx,$qry);
 
-    $_SESSION['usuario']['icono'] = $_POST['icono'];
+    if($rta){
 
-    switch ($_POST['icono']) {
-        case 1:
-            $_SESSION['datos']['marcasID'] = 1;
-            $_SESSION['datos']['marcaNombre'] = 'Chevrolet';
-            $_SESSION['datos']['marcaImagen'] = 'chevroletLogo.png';
-            break;
+        $_SESSION['usuario']['icono'] = $_POST['icono'];
 
-        case 2:
-            $_SESSION['datos']['marcasID'] = 2;
-            $_SESSION['datos']['marcaNombre'] = 'Ford';
-            $_SESSION['datos']['marcaImagen'] = 'fordLogo.png';
-            break;
+        switch ($_POST['icono']) {
+            case 1:
+                $_SESSION['datos']['marcasID'] = 1;
+                $_SESSION['datos']['marcaNombre'] = 'Chevrolet';
+                $_SESSION['datos']['marcaImagen'] = 'chevroletLogo.png';
+                break;
 
-        case 3:
-            $_SESSION['datos']['marcasID'] = 3;
-            $_SESSION['datos']['marcaNombre'] = 'Torino';  
-            $_SESSION['datos']['marcaImagen'] = 'torinoLogo.png';
-            break;
+            case 2:
+                $_SESSION['datos']['marcasID'] = 2;
+                $_SESSION['datos']['marcaNombre'] = 'Ford';
+                $_SESSION['datos']['marcaImagen'] = 'fordLogo.png';
+                break;
 
-        case 4:
-            $_SESSION['datos']['marcasID'] = 4;
-            $_SESSION['datos']['marcaNombre'] = 'Dodge';               
-            $_SESSION['datos']['marcaImagen'] = 'dodgeLogo.png';
-            break;
-        
-        default:
-            die();
-            break;
+            case 3:
+                $_SESSION['datos']['marcasID'] = 3;
+                $_SESSION['datos']['marcaNombre'] = 'Torino';  
+                $_SESSION['datos']['marcaImagen'] = 'torinoLogo.png';
+                break;
+
+            case 4:
+                $_SESSION['datos']['marcasID'] = 4;
+                $_SESSION['datos']['marcaNombre'] = 'Dodge';               
+                $_SESSION['datos']['marcaImagen'] = 'dodgeLogo.png';
+                break;
+            
+            default:
+                die();
+                break;
+        }
+
+        $newSESSION[0] = $_SESSION['usuario'];
+        $newSESSION[1] = $_SESSION['datos'];
+
+        session_destroy();
+
+        session_start();
+
+        $_SESSION["usuario"] = $newSESSION[0];
+        $_SESSION["datos"] = $newSESSION[1];
+
+        header("Location:../?seccion=perfil&estado=ok&mensaje=datoActualizado");
+    }else{
+
+        header("Location:../?seccion=perfil&estado=error&mensaje=datoNoActualizado");
+
     }
-
-    $newSESSION[0] = $_SESSION['usuario'];
-    $newSESSION[1] = $_SESSION['datos'];
-
-    session_destroy();
-
-    session_start();
-
-    $_SESSION["usuario"] = $newSESSION[0];
-    $_SESSION["datos"] = $newSESSION[1];
-
-    header("Location:../?seccion=perfil");
 
 }else if($key == 'piloto' && $_SESSION['datos']['pilotoID'] != $_POST[$keys[0]]){
 
@@ -66,29 +73,34 @@ if($key == 'icono' && $_SESSION['datos']['marcasID'] != $_POST[$keys[0]]){
 
     $rta = mysqli_query($cnx,$qry);
 
-    $qryPiloto = "SELECT id, nombre, casco FROM pilotos WHERE id=$value;";
+    if($rta){
 
-    $rtaPiloto = mysqli_query($cnx,$qryPiloto);
+        $qryPiloto = "SELECT id, nombre, casco FROM pilotos WHERE id=$value;";
 
-    $piloto = mysqli_fetch_assoc($rtaPiloto);
+        $rtaPiloto = mysqli_query($cnx,$qryPiloto);
 
-    $_SESSION['usuario']['piloto_id'] = $piloto['id'];
-    $_SESSION['datos']['pilotoID'] = $piloto['id'];
-    $_SESSION['datos']['pilotoNombre'] = $piloto['nombre'];
-    $_SESSION['datos']['pilotoImagen'] = $piloto['casco'];
+        $piloto = mysqli_fetch_assoc($rtaPiloto);
+
+        $_SESSION['usuario']['piloto_id'] = $piloto['id'];
+        $_SESSION['datos']['pilotoID'] = $piloto['id'];
+        $_SESSION['datos']['pilotoNombre'] = $piloto['nombre'];
+        $_SESSION['datos']['pilotoImagen'] = $piloto['casco'];
 
 
-    $newSESSION[0] = $_SESSION['usuario'];
-    $newSESSION[1] = $_SESSION['datos'];
+        $newSESSION[0] = $_SESSION['usuario'];
+        $newSESSION[1] = $_SESSION['datos'];
 
-    session_destroy();
+        session_destroy();
 
-    session_start();
+        session_start();
 
-    $_SESSION["usuario"] = $newSESSION[0];
-    $_SESSION["datos"] = $newSESSION[1];
+        $_SESSION["usuario"] = $newSESSION[0];
+        $_SESSION["datos"] = $newSESSION[1];
 
-    header("Location:../?seccion=perfil");
+        header("Location:../?seccion=perfil&estado=ok&mensaje=datoActualizado");
+    }else{
+        header("Location:../?seccion=perfil&estado=error&mensaje=datoNoActualizado");
+    }
 
 }else if($key == 'usuario'  && $_SESSION['usuario']['usuario'] != $_POST[$keys[0]] && $_POST['usuario'] !== "" && strlen($_POST['usuario']) < 40){
 
@@ -117,14 +129,14 @@ if($key == 'icono' && $_SESSION['datos']['marcasID'] != $_POST[$keys[0]]){
             $_SESSION["usuario"] = $newSESSION[0];
             $_SESSION["datos"] = $newSESSION[1];
 
-            header("Location:../?seccion=perfil");
+            header("Location:../?seccion=perfil&estado=ok&mensaje=datoActualizado");
 
-        }else{
-            header("Location:../?seccion=perfil&estadp=error");
-        }
+            }else{
+                header("Location:../?seccion=perfil&estado=error&mensaje=datoNoActualizado");
+            }
 
     }else{
-        echo 'ya existe';
+        header("Location:../?seccion=perfil&estado=error&mensaje=usuarioExistente");
     }
 
 
@@ -149,10 +161,10 @@ if($key == 'icono' && $_SESSION['datos']['marcasID'] != $_POST[$keys[0]]){
         $_SESSION["usuario"] = $newSESSION[0];
         $_SESSION["datos"] = $newSESSION[1];
 
-        header("Location:../?seccion=perfil");
+        header("Location:../?seccion=perfil&estado=ok&mensaje=datoActualizado");
 
     }else{
-        header("Location:../?seccion=perfil&estadp=error");
+        header("Location:../?seccion=perfil&estado=error&mensaje=datoNoActualizado");
     }
 
 }else if($key == 'apellido'  && $_SESSION['usuario']['apellido'] != $_POST[$keys[0]] && $_POST['apellido'] !== "" && strlen($_POST['apellido']) < 40){
@@ -176,10 +188,10 @@ if($key == 'icono' && $_SESSION['datos']['marcasID'] != $_POST[$keys[0]]){
         $_SESSION["usuario"] = $newSESSION[0];
         $_SESSION["datos"] = $newSESSION[1];
 
-        header("Location:../?seccion=perfil");
+        header("Location:../?seccion=perfil&estado=ok&mensaje=datoActualizado");
 
     }else{
-        header("Location:../?seccion=perfil&estadp=error");
+        header("Location:../?seccion=perfil&estado=error&mensaje=datoNoActualizado");
     }
 
 }
@@ -211,14 +223,14 @@ else if($key == 'email'  && $_SESSION['usuario']['email'] != $_POST[$keys[0]] &&
             $_SESSION["usuario"] = $newSESSION[0];
             $_SESSION["datos"] = $newSESSION[1];
 
-            header("Location:../?seccion=perfil");
+            header("Location:../?seccion=perfil&estado=ok&mensaje=datoActualizado");
 
         }else{
-            header("Location:../?seccion=perfil&estadp=error");
+            header("Location:../?seccion=perfil&estado=error&mensaje=datoNoActualizado");
         }
 
     }else{
-        echo 'ya existe';
+        header("Location:../?seccion=perfil&estado=error&mensaje=emailExistente");
     }
 
 
@@ -245,10 +257,10 @@ else if($key == 'email'  && $_SESSION['usuario']['email'] != $_POST[$keys[0]] &&
         $_SESSION["usuario"] = $newSESSION[0];
         $_SESSION["datos"] = $newSESSION[1];
 
-        header("Location:../?seccion=perfil");
+        header("Location:../?seccion=perfil&estado=ok&mensaje=datoActualizado");
 
     }else{
-        header("Location:../?seccion=perfil&estadp=error");
+        header("Location:../?seccion=perfil&estado=error&mensaje=datoNoActualizado");
     }
 
 }else if($key == 'nacimiento' && !empty($_POST['nacimiento']) && strtotime($_POST["nacimiento"]) > strtotime("01-01-1900") && strtotime($_POST["nacimiento"]) < strtotime("01-01-2020")){
@@ -272,15 +284,15 @@ else if($key == 'email'  && $_SESSION['usuario']['email'] != $_POST[$keys[0]] &&
         $_SESSION["usuario"] = $newSESSION[0];
         $_SESSION["datos"] = $newSESSION[1];
 
-        header("Location:../?seccion=perfil");
+        header("Location:../?seccion=perfil&estado=ok&mensaje=datoActualizado");
 
     }else{
-        header("Location:../?seccion=perfil&estadp=error");
+        header("Location:../?seccion=perfil&estado=error&mensaje=datoNoActualizado");
     }
 
 }else{
 
-    echo 'cagaste';
+    header("Location:../?seccion=perfil");
 }
 
 

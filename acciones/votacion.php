@@ -15,15 +15,15 @@ if(!empty($_SESSION)){
             $qryVotoEmitido = "UPDATE usuarios SET Voto=0 WHERE id='$usr';";
             mysqli_query($cnx,$qryVotoEmitido);
             $_SESSION['usuario']['Voto']=0;
-            header('location:../?seccion=encuesta&estado=hecho');
+            header('location:../?seccion=encuesta&estado=ok&mensaje=votoOk');
 
         }else{
 
-            header('location:../?seccion=encuesta&estado=ProblemaVoto');
+            header('location:../?seccion=encuesta&estado=error&mensaje=votoNo');
         }
 
     }else{
-        header('location:../?seccion=encuesta&estado=NoPodes');
+        header('location:../?seccion=encuesta&estado=error&mensaje=yaVoto');
     }
 }else{
     header('location:../?seccion=login');

@@ -32,11 +32,12 @@ $qryPilotos = "SELECT id, nombre FROM pilotos";
             $rtaActualizacion = mysqli_query($cnx, $qryActualizacion);
 
 
-            for ($i=0; $i < count($resultado); $i++) {
-
-                if($resultado[$i]['id'] == $id){
-                    $resultado[$i]['Voto'] == $voto;    
-                }
+            if($rtaActualizacion){
+                header('location:panel.php?seccion=panelcrud&edit=usuarios&estado=ok&mensaje=datoActualizado');
+                die();
+            }else{
+                header('location:panel.php?seccion=panelcrud&edit=usuarios&estado=error&mensaje=datoNoActualizado');
+                die();
             }
 
             
@@ -48,19 +49,30 @@ $qryPilotos = "SELECT id, nombre FROM pilotos";
             $qryActualizacion = "UPDATE usuarios SET isAdmin=$isAd WHERE usuarios.id=$id";
             $rtaActualizacion = mysqli_query($cnx, $qryActualizacion);
 
-
-            for ($i=0; $i < count($resultado); $i++) {
-
-                if($resultado[$i]['id'] == $id){
-                    $resultado[$i]['isAdmin'] == $isAd;    
-                }
+            if($rtaActualizacion){
+                header('location:panel.php?seccion=panelcrud&edit=usuarios&estado=ok&mensaje=datoActualizado');
+                die();
+            }else{
+                header('location:panel.php?seccion=panelcrud&edit=usuarios&estado=error&mensaje=datoNoActualizado');
+                die();
             }
 
+
+            
 
         }else if(isset($_POST['borrar'])){
 
             $qryBorrar = "DELETE FROM usuarios WHERE id=$id";
             $rtaBorrar = mysqli_query($cnx, $qryBorrar);
+
+
+            if($rtaBorrar){
+                header('location:panel.php?seccion=panelcrud&edit=usuarios&estado=ok&mensaje=datoBorrado');
+                die();
+            }else{
+                header('location:panel.php?seccion=panelcrud&edit=usuarios&estado=error&mensaje=datoNoBorrado');
+                die();
+            }
 
             
 
@@ -100,11 +112,13 @@ $qryPilotos = "SELECT id, nombre FROM pilotos";
             $qryActualizacion = "UPDATE usuarios SET $colYdat WHERE usuarios.id=$id;";
             $rtaActualizacion = mysqli_query($cnx, $qryActualizacion);
             
-            if(!$rtaActualizacion){
-                echo 'mal';
+            if($rtaActualizacion){
+                header('location:panel.php?seccion=panelcrud&edit=usuarios&estado=ok&mensaje=datoActualizado');
+                die();
+            }else{
+                header('location:panel.php?seccion=panelcrud&edit=usuarios&estado=error&mensaje=datoNoActualizado');
+                die();
             }
-
-            echo $qryActualizacion;
 
 
         }
@@ -114,15 +128,22 @@ $qryPilotos = "SELECT id, nombre FROM pilotos";
 
     for ($i=0; $i < count($resultado); $i++) { 
 
-    echo '<div>';
+    echo '<div class="cardEdit">';
 
         echo '<form method="post">';
+            echo '<p>Usuario</p>';
             echo '<input type="text" name="usuario" value="'. $resultado[$i]['usuario'] .'"/>';
-            echo '<input type="text" name="nombre" value="'. $resultado[$i]['nombre'] .'"/>';
+            echo '<p>Nombre</p>';
+              echo '<input type="text" name="nombre" value="'. $resultado[$i]['nombre'] .'"/>';
+              echo '<p>Apellido</p>';
             echo '<input type="text" name="apellido" value="'. $resultado[$i]['apellido'] .'"/>';
+            echo '<p>Email</p>';
             echo '<input type="email" name="email" value="'. $resultado[$i]['email'] .'"/>';
+            echo '<p>Contraseña</p>';
             echo '<input type="password" name="contraseña" value="'. $resultado[$i]['contraseña'] .'"/>';
+            echo '<p>Nacimiento</p>';
             echo '<input type="date" name="nacimiento" value="'. $resultado[$i]['nacimiento'] .'"/>';
+            echo '<p>Icono de perfil</p>';
             echo '<select name="icono">';
                 for ($a=0; $a < count($iconos); $a++) { 
 
@@ -135,7 +156,7 @@ $qryPilotos = "SELECT id, nombre FROM pilotos";
                     echo '<option value="'. $iconos[$a]['id'] .'">'. $iconos[$a]['nombre'] .'</option>';
                 }
             echo '</select>';
-
+            echo '<p>Piloto favorito</p>';
             echo '<select name="piloto_id">';
                 for ($p=0; $p < count($pilotos); $p++) { 
 

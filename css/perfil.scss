@@ -103,3 +103,20 @@ $color1:#AD2621;
         padding-top: 8px;
     }
 }
+
+@media(min-width:600px){
+    .perfil{
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+
+        >form{
+            >div:first-of-type{
+                >img{
+                    width: 200px;
+                    height: 200px;
+                }
+            }
+        }
+    }
+}

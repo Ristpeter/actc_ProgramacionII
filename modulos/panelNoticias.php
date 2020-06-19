@@ -52,12 +52,12 @@
         if(!empty($img['name'])){
             
             if($img['type'] != "image/png"){
-                header('location:type');
+                header('location:panel.php?seccion=panelcrud&edit=noticias&estado=error&mensaje=typeImg');
                 die();
             }
 
             if($img['size'] > 1048576){
-                header('location:oooo');
+                header('location:panel.php?seccion=panelcrud&edit=noticias&estado=error&mensaje=tamañoImg');
                 die();
             }
             
@@ -69,13 +69,16 @@
                 }else{
                     $changes = $changes.', imagen="'.$nombreImg.'"';
                 }
+            }else{
+                header('location:panel.php?seccion=panelcrud&edit=noticias&estado=error&mensaje=ocurrioProblema');
+                die();
             }
         }
 
         if(isset($_POST['titulo']) && $_POST['titulo'] != $resultado[$_POST['indice']]['titulo']){
 
             if(strlen($_POST['titulo']) > 120){
-                header('location: aaaa');
+                header('location:panel.php?seccion=panelcrud&edit=noticias&estado=error&mensaje=excedeLargo');
                 die();
             }
 
@@ -90,7 +93,7 @@
         if(isset($_POST['descripcion']) && $_POST['descripcion'] != $resultado[$_POST['indice']]['descripcion']){
 
             if(strlen($_POST['descripcion']) > 21000){
-                header('location: aaaa');
+                header('location:panel.php?seccion=panelcrud&edit=noticias&estado=error&mensaje=excedeLargo');
                 die();
             }
 
@@ -115,6 +118,7 @@
         if(isset($_POST['link']) && $_POST['link'] != $resultado[$_POST['indice']]['link']){
 
             if(strlen($_POST['link']) > 80){
+                header('location:panel.php?seccion=panelcrud&edit=noticias&estado=error&mensaje=excedeLargo');
                 die();
             }
 
@@ -141,16 +145,7 @@
                 array_push($noticiasConMarcas, $marcasNoticias[$z]['marca']);
             }
         }
-        echo 'pilotos';
-        print_r($noticiasConPilotos);
-        echo 'marcas';
-        print_r($noticiasConMarcas);
 
-        echo '<p>-----</p>';
-
-        print_r($_POST['pilotosNoticias']);
-
-        echo $changes;
 
         $noticiaID = $_POST['id'];
 
@@ -158,11 +153,11 @@
             $qryDelete = "DELETE FROM pilotos_has_noticias WHERE noticia='$noticiaID'";
             $rtaDelete = mysqli_query($cnx, $qryDelete);
 
-            if($rtaDelete){
-                echo 'listo';
-            }else{
-                echo 'no';
+            if(!$rtaDelete){
+                header('location:panel.php?seccion=panelcrud&edit=noticias&estado=error&mensaje=datoNoBorrado');
+                die();
             }
+
         }else{
 
             $pilotoNot= $_POST['pilotosNoticias'];
@@ -173,8 +168,9 @@
                     $qryInser = " INSERT INTO pilotos_has_noticias (piloto, noticia) VALUES ('$pilotoNot[$l]', '$noticiaID')";
                     $rtaInser = mysqli_query($cnx, $qryInser);
 
-                    if($rtaInser){
-                        echo 'hecho';
+                    if(!$rtaInser){
+                        header('location:panel.php?seccion=panelcrud&edit=noticias&estado=error&mensaje=datoNoActualizado');
+                        die();
                     }
                 }
             }
@@ -185,8 +181,9 @@
                     $qryDelete = "DELETE FROM pilotos_has_noticias WHERE noticia='$noticiaID' AND piloto='$noticiasConPilotos[$p]'";
                     $rtaDelete = mysqli_query($cnx, $qryDelete);
 
-                    if($rtaDelete){
-                        echo 'hecho';
+                    if(!$rtaDelete){
+                        header('location:panel.php?seccion=panelcrud&edit=noticias&estado=error&mensaje=datoNoBorrado');
+                        die();
                     }
                 }
             }
@@ -197,11 +194,13 @@
             $qryDelete = "DELETE FROM marcas_has_noticias WHERE noticia='$noticiaID'";
             $rtaDelete = mysqli_query($cnx, $qryDelete);
 
-            if($rtaDelete){
-                echo 'listo';
-            }else{
-                echo 'no';
+            if(!$rtaDelete){
+                header('location:panel.php?seccion=panelcrud&edit=noticias&estado=error&mensaje=datoNoBorrado');
+                die();
             }
+
+            header('location:panel.php?seccion=panelcrud&edit=noticias&estado=ok&mensaje=datoActualizado');
+            die();
         }else{
 
             $marcaNot= $_POST['marcasNoticias'];
@@ -212,8 +211,9 @@
                     $qryInser = " INSERT INTO marcas_has_noticias (marca, noticia) VALUES ('$marcaNot[$l]', '$noticiaID')";
                     $rtaInser = mysqli_query($cnx, $qryInser);
 
-                    if($rtaInser){
-                        echo 'hecho';
+                    if(!$rtaInser){
+                        header('location:panel.php?seccion=panelcrud&edit=noticias&estado=error&mensaje=datoNoActualizado');
+                        die();
                     }
                 }
             }
@@ -224,32 +224,71 @@
                     $qryDelete = "DELETE FROM marcas_has_noticias WHERE noticia='$noticiaID' AND marca='$noticiasConMarcas[$p]'";
                     $rtaDelete = mysqli_query($cnx, $qryDelete);
 
-                    if($rtaDelete){
-                        echo 'hecho';
+                    if(!$rtaDelete){
+                        header('location:panel.php?seccion=panelcrud&edit=noticias&estado=error&mensaje=datoNoBorrado');
+                        die();
                     }
                 }
             }
 
+            if(strlen($changes) > 3){
+
+                $id = $_POST['id'];
+
+                $qry = "UPDATE noticias SET $changes WHERE id=$id";
+                $rta = mysqli_query($cnx, $qry);
+
+                if($rta){
+                    header('location:panel.php?seccion=panelcrud&edit=noticias&estado=ok&mensaje=datoActualizado');
+                    die();
+                }else{
+                    header('location:panel.php?seccion=panelcrud&edit=noticias&estado=error&mensaje=datoNoActualizado');
+                    die();
+                }
+
+
+            }
+
         }
 
-        echo $noticiaID;
+    }else if(isset($_POST['borrar'])){
+        $id = $_POST['idBorrar'];
 
+        $qryBorrar = "DELETE FROM noticias WHERE id='$id'";
+        $rtaBorrar = mysqli_query($cnx, $qryBorrar);
+
+        if(!$rtaBorrar){
+            header('location:panel.php?seccion=panelcrud&edit=noticias&estado=error&mensaje=datoNoBorrado');
+            die();
+        }else{
+            header('location:panel.php?seccion=panelcrud&edit=noticias&estado=ok&mensaje=datoBorrado');
+            die();
+        }
     }
 
 
     for ($i=0; $i < count($resultado); $i++) { 
      
-        echo '<div>';
+        echo '<div class="cardEdit">';
 
         echo '<form method="post" enctype="multipart/form-data">';
+        
             echo '<input type="hidden" name="id" value="'. $resultado[$i]['id']. '"/>';
             echo '<input type="hidden" name="indice" value="'.$i. '"/>';
+            echo '<p>Foto de noticia</p>';
             echo '<input type="file" name="foto"/>';
+            echo '<p>Titulo</p>';
             echo '<input type="text" name="titulo" value="'. $resultado[$i]['titulo'] .'"/>';
+            echo '<p>Descripcion</p>';
             echo '<input type="text" name="descripcion" value="'. $resultado[$i]['descripcion'] .'"/>';
+            echo '<p>Fecha</p>';
             echo '<input type="date" name="fecha" value="'. $resultado[$i]['fecha'] .'"/>';
+            echo '<p>Link de la noticia</p>';
             echo '<input type="text" name="link" value="'. $resultado[$i]['link'] .'"/>';
+            echo '<div class="gridNN">';
             echo '<div>';
+            echo '<p>Pilotos que aparecen</p>';
+            echo '<div id="selectNN">';
 
                 $pilotoRepe =[];
                 for ($j=0; $j < count($pilotos); $j++) { 
@@ -257,8 +296,10 @@
                     for ($a=0; $a < count($pilotosNoticias); $a++) { 
                         
                         if($pilotos[$j]['id'] == $pilotosNoticias[$a]['piloto'] && $resultado[$i]['id'] == $pilotosNoticias[$a]['noticia']){
-                            echo '<input type="checkbox" name="pilotosNoticias[]" value="'.$pilotos[$j]['id'].'" id="piloto'.$pilotos[$j]['id'].'" checked />';
-                            echo '<label for="piloto'.$pilotos[$j]['id'].'">'.$pilotos[$j]['nombre'].'</label>' ;
+                            echo '<div>';
+                            echo '<input type="checkbox" name="pilotosNoticias[]" value="'.$pilotos[$j]['id'].'" id="piloto'.$i.$pilotos[$j]['id'].'" checked />';
+                            echo '<label for="piloto'.$i.$pilotos[$j]['id'].'">'.$pilotos[$j]['nombre'].'</label>' ;
+                            echo '</div>';
                             array_push($pilotoRepe, $pilotos[$j]['id']);
                         break;
                         }
@@ -266,13 +307,18 @@
                     }
 
                     if(!in_array($pilotos[$j]['id'], $pilotoRepe)){
-                        echo '<input type="checkbox" name="pilotosNoticias[]" value="'.$pilotos[$j]['id'].'" id="piloto'.$pilotos[$j]['id'].'"/>';
-                        echo '<label for="piloto'.$pilotos[$j]['id'].'">'.$pilotos[$j]['nombre'].'</label>' ;
+                        echo '<div>';
+                        echo '<input type="checkbox" name="pilotosNoticias[]" value="'.$pilotos[$j]['id'].'" id="piloto'.$i.$pilotos[$j]['id'].'"/>';
+                        echo '<label for="piloto'.$i.$pilotos[$j]['id'].'">'.$pilotos[$j]['nombre'].'</label>' ;
+                        echo '</div>';
                     }
                 
                 }
             echo '</div>';
+            echo '</div>';
             echo '<div>';
+            echo '<p>Marcas que aparecen</p>';
+            echo '<div id="selectNN">';
 
                 $marcaRepe =[];
                 for ($x=0; $x < count($marcas); $x++) { 
@@ -280,8 +326,10 @@
                     for ($a=0; $a < count($marcasNoticias); $a++) { 
                         
                         if($marcas[$x]['id'] == $marcasNoticias[$a]['marca'] && $resultado[$i]['id'] == $marcasNoticias[$a]['noticia']){
-                            echo '<input type="checkbox" name="marcasNoticias[]" value="'.$marcas[$x]['id'].'" id="marca'.$marcas[$x]['id'].'" checked />';
-                            echo '<label for="marca'.$marcas[$x]['id'].'">'.$marcas[$x]['nombre'].'</label>' ;
+                            echo '<div>';
+                            echo '<input type="checkbox" name="marcasNoticias[]" value="'.$marcas[$x]['id'].'" id="marca'.$i.$marcas[$x]['id'].'" checked />';
+                            echo '<label for="marca'.$i.$marcas[$x]['id'].'">'.$marcas[$x]['nombre'].'</label>' ;
+                            echo '</div>';
                             array_push($marcaRepe, $marcas[$x]['id']);
                         break;
                         }
@@ -289,13 +337,24 @@
                     }
 
                     if(!in_array($marcas[$x]['id'], $marcaRepe)){
-                        echo '<input type="checkbox" name="marcasNoticias[]" value="'.$marcas[$x]['id'].'" id="marca'.$marcas[$x]['id'].'"/>';
-                            echo '<label for="marca'.$marcas[$x]['id'].'">'.$marcas[$x]['nombre'].'</label>' ;
+                        echo '<div>';
+                        echo '<input type="checkbox" name="marcasNoticias[]" value="'.$marcas[$x]['id'].'" id="marca'.$i.$marcas[$x]['id'].'"/>';
+                            echo '<label for="marca'.$i.$marcas[$x]['id'].'">'.$marcas[$x]['nombre'].'</label>' ;
+                        echo '</div>';
                     }
                 
                 }
             echo '</div>';
+            echo '</div>';
+
+            echo '</div>';
             echo '<input type="submit" value="Guardar"/>';
+        echo '</form>';
+
+        echo '<form method="post">';
+            echo '<input type="hidden" name="idBorrar" value="'. $resultado[$i]['id']. '"/>';
+            echo '<input type="hidden" name="borrar" value="1"/>';
+            echo '<input type="submit" value="Borrar"/>';
         echo '</form>';
 
         

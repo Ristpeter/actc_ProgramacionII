@@ -11,8 +11,8 @@
         padding-bottom: 20px;
 
         >div{
-            width: 90vw;
-            height: 90vw;
+            width: 80vw;
+            height: 80vw;
             margin-top: 20px;
             margin-left: auto;
             margin-right: auto;
@@ -29,18 +29,23 @@
                     width: 100%;
                     height: 100%;
                     background-color: grey;
+                    z-index: 50;
                 }
 
                 >div{
-                    width: 90vw;
-                    height: 90vw;
-                    background-color: rgba($color: #000000, $alpha: 0.3);
-                    margin-top: -90vw;
-                    padding: 15px 15px 15px 15px;
+                    width: 80vw;
+                    height: 80vw;
+                    background-color: rgba($color: #000000, $alpha: 0.4);
+                    margin-top: -80vw;
+                    z-index: 100;
+                    padding: 20px 20px 20px 20px;
+                    position: absolute;
 
                     h3{
-                        font-size: 20px;
+                        font-size: 25px;
                         color: white;
+                        text-transform: uppercase;
+                        width: 90%;
                     }
                 }
             }
@@ -68,7 +73,12 @@
         margin-top: 20px;
 
         >p{
-            margin-top: 10px;
+            margin-top: 15px;
+        }
+
+        >iframe{
+            margin-top: 30px;
+            width: 100%;
         }
     }
 
@@ -128,50 +138,66 @@
             background-color: rgba($color: #000000, $alpha: 0.3);
             border: 1px solid transparent;
             border-radius: 10px;
-
-            >label{
-                position: absolute;
-                width: 40px;
-                height: 40px;
-                background-color: brown;
-                font-size: 0;
-                right: 15px;
-
-                >form{
-                    >input[type=submit]{
-                        width: 40px;
-                        height: 40px;
-                        font-size: 0;
-                        background-color: transparent;
-                        border: none;
-                    }
-                }
-            }
-
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows:60px 1fr;
             >div:first-of-type{
-                width: fit-content;
-                height: fit-content;
                 display: grid;
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: 1fr;
-                grid-gap: 10px;
-                >img{
-                    display: flex;
-                    height: 50px;
-                    width: 50px;
-                    align-self: center;
-                    justify-self: center;
-                }
+                grid-template-columns: 1fr 40px;
+                grid-template-rows: 60px;
 
-                >div{
-                    margin-top:7px;
+                >label{
+                    width: 40px;
+                    height: 40px;
+                    font-size: 0;
+                    right: 15px;
+                    padding-top: 10px;
 
-                    >p{
-                        font-size: 12px;
+                    #borrarComent{
+                        display: block;
+                        width: 30px;
+                        height: 30px;
+                        background-color: brown;
+                        clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+                    }
+    
+                    >form{
+                        >input[type=submit]{
+                            width: 40px;
+                            height: 40px;
+                            font-size: 0;
+                            background-color: transparent;
+                            border: none;
+                        }
                     }
                 }
+    
+                >div:first-of-type{
+                    width: fit-content;
+                    height: fit-content;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    grid-template-rows: 1fr;
+                    grid-gap: 10px;
+                    >img{
+                        display: flex;
+                        height: 50px;
+                        width: 50px;
+                        align-self: center;
+                        justify-self: center;
+                    }
+    
+                    >div{
+                        margin-top:7px;
+    
+                        >p{
+                            font-size: 12px;
+                        }
+                    }
+                }
+    
             }
-
+           
             >div:last-of-type{
                 width: 100%;
                 min-height: 100px;
@@ -229,5 +255,91 @@
         }
     }
 
+
+}
+
+@media(min-width:600px){
+
+    .noticias{
+
+        
+        >div{   
+
+            grid-template-columns: 1fr 1fr;
+
+            >div{
+                width: 40vw;
+                height: 40vw;
+
+                >a{
+                    >div{
+                        width: 40vw;
+                        height: 40vw;
+                        margin-top: -40vw;
+                    }
+                }
+
+            
+            }
+        }
+    }
+
+    .noticia{
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+
+        iframe{
+            width: 100%;
+    
+        }
+
+        img{
+            width: 100%;
+        }
+    }
+
+}
+
+@media(min-width:900px){
+
+    .noticias{
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+
+        >div{   
+
+            >div{
+                max-width: 350px;
+                max-height: 350px;
+
+                >a{
+                    >div{
+                        max-width: 350px;
+                        max-height: 350px;
+                        margin-top: -350px;
+                    }
+                }
+
+            
+            }
+        }
+    }
+
+    .noticia{
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+
+        iframe{
+            width: 100%;
+    
+        }
+
+        img{
+            width: 100%;
+        }
+    }
 
 }

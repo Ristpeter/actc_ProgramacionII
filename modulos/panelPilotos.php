@@ -5,9 +5,9 @@ if(isset($_POST['id'])){
     $pilotoID = $_POST['id'];
     $changes = '';
     isset($_FILES['imagen'])?$imagen =$_FILES['imagen']:'';
-    isset($_FILES['casco'])?$imagen =$_FILES['casco']:'';
-    isset($_FILES['imagen']['name'])?$imagen =$_FILES['imagen']['name']:'';
-    isset($_FILES['casco']['name'])?$imagen =$_FILES['casco']['name']:'';
+    isset($_FILES['casco'])?$casco =$_FILES['casco']:'';
+    isset($_FILES['imagen']['name'])?$nombreImagen =$_FILES['imagen']['name']:'';
+    isset($_FILES['casco']['name'])?$nombreCasco =$_FILES['casco']['name']:'';
 
     if(isset($_POST['borrar'])){
 
@@ -17,21 +17,23 @@ if(isset($_POST['id'])){
         $rtaBorrarPiloto = mysqli_query($cnx, $qryBorrarPiloto);
     
         if($rtaBorrarPiloto){
-            echo 'hecho';
+            header('location:panel.php?seccion=panelcrud&edit=pilotos&estado=ok&mensaje=datoBorrado');
+            die();
         }else{
-            echo 'fallo';
+            header('location:panel.php?seccion=panelcrud&edit=pilotos&estado=error&mensaje=datoNoBorrado');
+            die();
         }
     }
 
     if(!empty($nombreImagen)){
         
         if($imagen['type'] != "image/png"){
-            header('location:type');
+            header('location:panel.php?seccion=panelcrud&edit=pilotos&estado=error&mensaje=typeImg');
             die();
         }
 
         if($imagen['size'] > 1048576){
-            header('location:oooo');
+            header('location:panel.php?seccion=panelcrud&edit=pilotos&estado=error&mensaje=tamañoImg');
             die();
         }
         
@@ -43,18 +45,21 @@ if(isset($_POST['id'])){
             }else{
                 $changes = $changes.', imagen="'.$nombreImagen.'"';
             }
+        }else{
+            header('location:panel.php?seccion=panelcrud&edit=pilotos&estado=error&mensaje=problemaImg');
+            die();
         }
     }
 
     if(!empty($nombreCasco)){
         
         if($casco['type'] != "image/png"){
-            header('location:type');
+            print_r($casco);
             die();
         }
 
         if($casco['size'] > 1048576){
-            header('location:oooo');
+            header('location:panel.php?seccion=panelcrud&edit=pilotos&estado=error&mensaje=tamañoImg');
             die();
         }
         
@@ -66,13 +71,17 @@ if(isset($_POST['id'])){
             }else{
                 $changes = $changes.', casco="'.$nombreCasco.'"';
             }
+        }else{
+            header('location:panel.php?seccion=panelcrud&edit=pilotos&estado=error&mensaje=problemaImg');
+            die();
         }
+        
     }
 
     if(isset($_POST['nombre']) && $_POST['nombre'] != $resultado[$_POST['indice']]['nombre']){
 
         if(strlen($_POST['nombre']) > 60){
-            header('location:asd');
+            header('location:panel.php?seccion=panelcrud&edit=pilotos&estado=error&mensaje=excedeLargo');
             die();
         }
 
@@ -88,7 +97,7 @@ if(isset($_POST['id'])){
     if(isset($_POST['biografia']) && $_POST['biografia'] != $resultado[$_POST['indice']]['biografia']){
 
         if(strlen($_POST['biografia']) > 21000){
-            header('location:asd');
+            header('location:panel.php?seccion=panelcrud&edit=pilotos&estado=error&mensaje=excedeLargo');
             die();
         }
 
@@ -103,7 +112,7 @@ if(isset($_POST['id'])){
     if(isset($_POST['equipo']) && $_POST['equipo'] != $resultado[$_POST['indice']]['equipo']){
 
         if(strlen($_POST['equipo']) > 60){
-            header('location:asd');
+            header('location:panel.php?seccion=panelcrud&edit=pilotos&estado=error&mensaje=excedeLargo');
             die();
         }
 
@@ -130,7 +139,7 @@ if(isset($_POST['id'])){
         echo $_POST['edad'];
 
         if(intval($_POST['edad']) < 15 || intval($_POST['edad']) > 60){
-            header('location:asd');
+            header('location:panel.php?seccion=panelcrud&edit=pilotos&estado=error&mensaje=problemaEdad');
             die();
         }
 
@@ -145,7 +154,7 @@ if(isset($_POST['id'])){
     if(isset($_POST['numero']) && $_POST['numero'] != $resultado[$_POST['indice']]['numero']){
 
         if($_POST['numero'] <1 || $_POST['numero'] > 999){
-            header('location:asd');
+            header('location:panel.php?seccion=panelcrud&edit=pilotos&estado=error&mensaje=problemaNumero');
             die();
         }
 
@@ -160,7 +169,7 @@ if(isset($_POST['id'])){
     if(isset($_POST['link']) && $_POST['link'] != $resultado[$_POST['indice']]['link']){
 
         if(strlen($_POST['link']) > 50){
-            header('location:asd');
+            header('location:panel.php?seccion=panelcrud&edit=pilotos&estado=error&mensaje=excedeLargo');
             die();
         }
 
@@ -187,7 +196,11 @@ if(isset($_POST['id'])){
         $rta = mysqli_query($cnx, $qry);
 
         if($rta){
-            echo 'hecho';
+            header('location:panel.php?seccion=panelcrud&edit=pilotos&estado=ok&mensaje=datoActualizado');
+            die();
+        }else{
+            header('location:panel.php?seccion=panelcrud&edit=pilotos&estado=error&mensaje=datoNoActualizado');
+            die();
         }
     }
 
@@ -210,19 +223,27 @@ while($row = mysqli_fetch_assoc($rtaMarca)){
 
 for ($i=0; $i < count($resultado); $i++) { 
 
-    echo '<div style="margin-top:20px;">';
+    echo '<div class="cardEdit" >';
         echo '<form method="post" enctype="multipart/form-data">';
             echo '<input type="hidden" name="id" value="'. $resultado[$i]['id']. '"/>';
             echo '<input type="hidden" name="indice" value="'.$i. '"/>';
+            echo '<p>Imagen de perfil</p>';
             echo '<input type="file" name="imagen"/>';
+            echo '<p>Nombre</p>';
             echo '<input type="text" name="nombre" value="'. $resultado[$i]['nombre'] .'"/>';
+            echo '<p>Biografia</p>';
             echo '<input type="text" name="biografia" value="'. $resultado[$i]['biografia'] .'"/>';
+            echo '<p>Equipo</p>';
             echo '<input type="text" name="equipo" value="'. $resultado[$i]['equipo'] .'"/>';
+            echo '<p>Nacimiento</p>';
             echo '<input type="date" name="nacimiento" value="'. $resultado[$i]['nacimiento'] .'"/>';
+            echo '<p>Edad</p>';
             echo '<input type="number" name="edad" value="'. $resultado[$i]['edad'] .'"/>';
+            echo '<p>Numero</p>';
             echo '<input type="number" name="numero" value="'. $resultado[$i]['numero'] .'"/>';
+            echo '<p>Link</p>';
             echo '<input type="text" name="link" value="'. $resultado[$i]['link'] .'"/>';
-            
+            echo '<p>Marca</p>';
             echo '<select name="marca">';
             
                 for ($j=0; $j < count($marcas); $j++) { 
@@ -236,6 +257,7 @@ for ($i=0; $i < count($resultado); $i++) {
                 }
 
             echo '</select>';
+            echo '<p>Foto del casco</p>';
             echo '<input type="file" name="casco"/>';
             echo '<input type="submit" value="Guardar"/>';
         echo '</form>';

@@ -5,32 +5,32 @@ require_once("../config/config.php");
 
 if($_POST['usuario'] == null){
             
-    header('location:../index.php?seccion=register&err=err&msj=usuario');
+    header('location:../index.php?seccion=register&estado=error&mensaje=datoObligatorioUsuario');
     die();
 
 }else if($_POST['nombre'] == null){
     
-    header('location:../index.php?seccion=register&err=err&msj=nombre');
+    header('location:../index.php?seccion=register&estado=error&mensaje=datoObligatorioNombre');
     die();
 
 }else if($_POST['apellido'] == null){
     
-    header('location:../index.php?seccion=register&err=err&msj=apellido');
+    header('location:../index.php?seccion=register&estado=error&mensaje=datoObligatorioApellido');
     die();
 
 }else if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
     
-    header('location:../index.php?seccion=register&err=err&msj=email');
+    header('location:../index.php?seccion=register&estado=error&mensaje=emailInvalido');
     die();
 
 }else if($_POST['contraseña'] == null){
 
-    header('location:../index.php?seccion=register&err=err&msj=contraseña');
+    header('location:../index.php?seccion=register&estado=error&mensaje=datoObligatorioContraseña');
     die();
 
 }else if($_POST['confirmarContraseña'] == null || $_POST['confirmarContraseña'] !== $_POST['contraseña']){
 
-    header('location:../index.php?seccion=register&err=err&msj=confirmarContraseña');
+    header('location:../index.php?seccion=register&estado=error&mensaje=datoObligatorioConfirmarContraseña');
     die();
 
 }else{
@@ -43,7 +43,7 @@ if($_POST['usuario'] == null){
     
     if(mysqli_num_rows($rtaEmail) !== 0){
 
-        header('location:../index.php?seccion=register&err=err&msj=mailExistente');
+        header('location:../index.php?seccion=register&estado=error&mensaje=emailExistente');
         die();
 
     }
@@ -56,7 +56,7 @@ if($_POST['usuario'] == null){
     
     if(mysqli_num_rows($rtaUsr) !== 0){
         
-        header('location:../index.php?seccion=register&err=err&msj=usrExistente');
+        header('location:../index.php?seccion=register&error=err&mensaje=usuarioExistente');
         die();
 
     }
@@ -70,14 +70,14 @@ if($_POST['usuario'] == null){
     $icono = $_POST['icono'];
     $piloto = $_POST['piloto'];
 
-    $qryInsert = "INSERT INTO usuarios (usuario, nombre, apellido, email, contraseña, nacimiento, icono, piloto_id) VALUES ('$usr','$nombre','$apellido','$email','$password','$nacimiento','$icono','$piloto');";
+    $qryInsert = "INSERT INTO usuarios (usuario, nombre, apellido, email, contraseña, nacimiento, icono, piloto_id, Voto) VALUES ('$usr','$nombre','$apellido','$email','$password','$nacimiento','$icono','$piloto', 1);";
 
     $rtaInsert = mysqli_query($cnx, $qryInsert);
 
     if(!$rtaInsert){
-        header("Location: ../index.php?seccion=register&estado=error&mensaje=registro");
+        header("Location: ../index.php?seccion=register&estado=error&mensaje=noRegistro");
         die();
     }else{
-        header("Location: ../index.php?seccion=login&err=ok&mensaje=registro");
+        header("Location: ../index.php?seccion=login&estado=ok&mensaje=registro");
     }
 }
